@@ -1,6 +1,7 @@
-package com.infogalaxy.productapi.controller;
+package com.infogalaxy.productapi.entity;
 
-import com.infogalaxy.productapi.entity.Prod;
+import com.infogalaxy.productapi.controller.Prod;
+import com.infogalaxy.productapi.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 @RequestMapping("/prod/api")
 public class ProductController {
 
-    ArrayList<Prod> prodArrayList = new ArrayList<>();
+    ProductService productService = new ProductService();
 
     @GetMapping("/home")
     public String homepage(){
@@ -17,22 +18,16 @@ public class ProductController {
     }
 @PostMapping("/addprod")
     public Prod addprod(@RequestBody Prod prod){
-        prodArrayList.add(prod);
-        return prod;
+    return productService.addProd(prod);
+
     }
     @GetMapping("/getprod")
     public Prod getProd(){
-        Prod prod = new Prod();
-        prod.setId(1);
-        prod.setName("pen");
-        prod.setDescription("Gel pen");
-        prod.setPrice(9);
-        prod.setQuantity(10);
-        prod.setStatus("Available");
-        return prod;
+
+        return productService.getProd();
     }
     @GetMapping("/getallprod")
     public ArrayList<Prod> getallprod(){
-        return prodArrayList;
+        return productService.getAllProd();
     }
 }
